@@ -1,0 +1,27 @@
+version: '3'
+services:
+   cassandradb:
+     container_name: cassandradb
+     image: datastax/dse-server:latest
+     volumes:
+        - cassandra-data:/var/lib/cassandra
+     ports:
+        - '9042:9042'
+     environment:
+        - DS_LICENSE=accept
+        - "MAX_HEAP_SIZE=256M"
+        - "HEAP_NEWSIZE=128M" 
+        
+   datastx-studio:
+     container_name: datastx-studio
+     image: datastax/dse-studio:latest
+     links:
+       - cassandradb
+     ports:
+        - '9091:9091'
+     environment:
+       - DS_LICENSE=accept
+        
+volumes:
+  cassandra-data:
+     driver: local
