@@ -2,7 +2,9 @@
 
 You may update these docker compose files as per your requirement, but **do not** checkin your local changes unless needed by everyone else. 
 
-Note: These containers are meant for local testing only.
+Note: These containers are meant for local testing only.   
+
+https://github.com/sambos/HowTo/wiki/Docker-Containers
 
 
 * Change to each service to start
