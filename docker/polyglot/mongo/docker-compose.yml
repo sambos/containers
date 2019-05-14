@@ -1,12 +1,23 @@
 version: '3'
-services:
+services: 
+    
+  app:
+    container_name: mongoexpress
+    image: mongo-express
+    ports: 
+      -  8082:8081
+    links:
+      - mongodb
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      
   mongodb:
     container_name: mongodb
-    image: mongo
-    ports:
-      - 28017:27017
+    image: mongo:latest
+    ports: 
+      -  27017:27017
     volumes:
-      - mongo-data:/data/db
-
-volumes:
+      -  mongo-data:/data/db
+    
+volumes: 
     mongo-data:
