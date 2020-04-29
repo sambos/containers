@@ -8,3 +8,7 @@ https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
 
 #### Kafka Confluent with Docker QuickStart
 https://docs.confluent.io/3.2.1/installation/docker/docs/quickstart.html#getting-started-with-docker-compose
+
+
+#### kafka confluent workshop 
+https://github.com/confluentinc/kafka-workshop
