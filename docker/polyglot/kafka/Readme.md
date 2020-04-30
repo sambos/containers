@@ -1,17 +1,16 @@
 
-https://github.com/wurstmeister/kafka-docker
+### kafka confluent workshop 
+https://github.com/confluentinc/kafka-workshop
 
-https://github.com/datastax/kafka-examples/tree/master/connectors/jdbc-source-connector
 
 #### Kafka Docker Connectivity
 https://github.com/wurstmeister/kafka-docker/wiki/Connectivity
 
-#### Kafka Confluent with Docker QuickStart
+#### kafka docker info
+https://github.com/wurstmeister/kafka-docker
 https://docs.confluent.io/3.2.1/installation/docker/docs/quickstart.html#getting-started-with-docker-compose
+https://github.com/datastax/kafka-examples/tree/master/connectors/jdbc-source-connector
 
-
-#### kafka confluent workshop 
-https://github.com/confluentinc/kafka-workshop
 
 
 #### Useful commands:
