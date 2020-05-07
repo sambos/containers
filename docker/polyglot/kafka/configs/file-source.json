@@ -1,0 +1,9 @@
+{
+	"name": "quickstart-file-source",
+	"config": {
+		"connector.class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
+		"tasks.max": "1",
+		"topic": "quickstart-data",
+		"file": "/tmp/input.txt"
+	}
+}
