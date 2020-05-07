@@ -23,20 +23,58 @@ Default Topics:
 ```
 #### kafkacat commands:
 
-docker-compose exec <kafkacat-container-name> <below-commands>
-  
+you may use docker-compose-full.yml to run with these commands
+
 ```sh
-# display last 10 messages 
-kafkacat -b kafka1:9092 -t <topic-name> -p 0 -o -10 -e
 
 # delete topic
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --delete --topic movies-raw
 
+#create topic
+docker exec connect kafka-topics --create --topic quickstart-data --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+
+#create source connector
+
+
+docker-compose exec <kafkacat-container-name> <kafkacat-commands>
+
+# display last 10 messages 
+kafkacat -b kafka1:9092 -t <topic-name> -p 0 -o -10 -e
+
 #consume messages from topic
-kafkacat -b kafka1:9092 -C -t movies-raw
+kafkacat -b kafka1:9092 -C -t <topic-name>
 
 # produce messages from file
-kafkacat -b kafka1:9092 -P -c 2 -t movies-raw -l /data/movies-json.js
+kafkacat -b kafka1:9092 -P -c 2 -t <topic-name> -l /data/movies-json.js
+
+#meta-data
+kafkacat -b kafka1:9092 -L -t <topic_name>
+
+
+```
+
+#### FileStream example
+
+```sh
+# generate some data on connect container
+docker-compose exec connect bash -c 'seq 1000 > /tmp/quickstart/file/input.txt'
+
+#create topic
+docker exec connect kafka-topics --create --topic quickstart-data --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+
+#copy file-source.json, file-sink.json from local to connect container
+docker cp ./file-*.json <container-name>:/connect
+
+#create file source/sink connectors
+docker-compose exec connect bash -c 'curl -i -X POST -H "Accept:application/json" \
+        -H "Content-Type:application/json" -d @/connect/file-source.json http://localhost:8083/connectors'
+
+docker-compose exec connect bash -c 'curl -i -X POST -H "Accept:application/json" \
+        -H "Content-Type:application/json" -d @/connect/file-sink.json http://localhost:8083/connectors'
+        
+or inline:
+
+docker exec connect curl -s -X POST -H "Content-Type: application/json" --data '{"name": "quickstart-file-source", "config": {"connector.class":"org.apache.kafka.connect.file.FileStreamSourceConnector", "tasks.max":"1", "topic":"quickstart-data", "file": "/tmp/quickstart/file/input.txt"}}' http://connect:8083/connectors
 
 ```
 
