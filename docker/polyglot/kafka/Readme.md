@@ -50,6 +50,11 @@ kafkacat -b kafka1:9092 -P -c 2 -t <topic-name> -l /data/movies-json.js
 #meta-data
 kafkacat -b kafka1:9092 -L -t <topic_name>
 
+# kafka offset (run on kafka container)
+kafka-run-class kafka.admin.ConsumerGroupCommand --group consumer-1 --bootstrap-server kafka1:9092 --describe
+
+TOPIC                 PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+sample.producer.topic 0          26              26              0               -               -               -
 
 ```
 
