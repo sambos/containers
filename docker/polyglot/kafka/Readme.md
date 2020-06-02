@@ -93,6 +93,10 @@ docker run --rm -p 2181:2181 -p 3030:3030 -p 8081-8083:8081-8083 \
       landoop/fast-data-dev:latest
 ```
 
+```
+TODO: Add Docker compose file
+```
+
 #### Schema Registry
 ##### Multiple schemas, single topic
 https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/
