@@ -58,7 +58,7 @@ sample.producer.topic 0          26              26              0              
 
 ```
 
-#### FileStream example
+#### FileStream connector example
 
 ```sh
 # generate some data on connect container
@@ -82,4 +82,8 @@ or inline:
 docker exec connect curl -s -X POST -H "Content-Type: application/json" --data '{"name": "quickstart-file-source", "config": {"connector.class":"org.apache.kafka.connect.file.FileStreamSourceConnector", "tasks.max":"1", "topic":"quickstart-data", "file": "/tmp/quickstart/file/input.txt"}}' http://connect:8083/connectors
 
 ```
+
+#### Schema Registry
+##### Multiple schemas, single topic
+https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/
 
