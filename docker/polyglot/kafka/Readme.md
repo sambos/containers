@@ -58,6 +58,12 @@ sample.producer.topic 0          26              26              0              
 
 ```
 
+#### JDBC connector example
+
+```sh
+
+```
+
 #### FileStream connector example
 
 ```sh
