@@ -84,6 +84,9 @@ or run command from connect/kafka node
 
 kafka-console-consumer --bootstrap-server kafka1:9092 --topic __consumer_offsets --from-beginning --formatter "kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageFormatter"
 
+format:
+[groupId,topicName,partitionNumber]::[OffsetMetadata[OffsetNumber,NO_METADATA],CommitTime 1520613132835,ExpirationTime 1520699532835]
+
 reponse:
 [demo-group,postgres-movies,0]::OffsetAndMetadata(offset=30, leaderEpoch=Optional.empty, metadata=, commitTimestamp=1591295989063, expireTimestamp=None)
 [test-1,new-employees,0]::OffsetAndMetadata(offset=13, leaderEpoch=Optional.empty, metadata=, commitTimestamp=1591296368280, expireTimestamp=None)
