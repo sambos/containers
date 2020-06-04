@@ -67,8 +67,8 @@ docker-compose exec kafka1 kafka-run-class kafka.tools.GetOffsetShell --broker-l
 # view details of consumer group
 docker-compose exec kafka1 kafka-consumer-groups --bootstrap-server kafka1:9092 --describe --group demo-group
 
-# kafka offset (run on kafka container)
-kafka-run-class kafka.admin.ConsumerGroupCommand --group consumer-1 --bootstrap-server kafka1:9092 --describe
+# kafka offset (run on kafka container) - (same as above command)
+kafka-run-class kafka.admin.ConsumerGroupCommand --bootstrap-server kafka1:9092 --group consumer-1 --describe
 
 TOPIC                 PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
 sample.producer.topic 0          26              26              0 
@@ -164,7 +164,8 @@ docker exec connect curl -s -X POST -H "Content-Type: application/json" --data '
 ```
 
 
-#### Schema Registry
+## Schema Registry
 ##### Multiple schemas, single topic
 https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/
+
 
