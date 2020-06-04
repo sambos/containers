@@ -23,7 +23,7 @@ https://github.com/datastax/kafka-examples/tree/master/connectors/jdbc-source-co
 
 https://github.com/lensesio/fast-data-dev
 
-```
+```sh
 docker run --rm -p 2181:2181 -p 3030:3030 -p 8081-8083:8081-8083 \
       -p 9581-9585:9581-9585 -p 9092:9092 -e ADV_HOST=127.0.0.1 \
       landoop/fast-data-dev:latest
@@ -36,7 +36,7 @@ TODO: Add Docker compose file
 
 ## Useful commands:
 
-```shell
+```console
 # check topics
 docker-compose exec kafka1 bash -c 'kafka-topics --zookeeper zookeeper:2181 --list'
 Default Topics:
@@ -56,7 +56,7 @@ baseOffset: 3 lastOffset: 3 count: 1 ... compresscodec: LZ4 ...
 
 you may use docker-compose-full.yml to run with these commands
 
-```shell
+```console, sh
 # describe a topic
 docker-compose exec kafkacat kafkacat -b kafka1:9092 -L -t new-employees
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --describe --topic new-employees
