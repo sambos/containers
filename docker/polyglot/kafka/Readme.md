@@ -56,7 +56,7 @@ baseOffset: 3 lastOffset: 3 count: 1 ... compresscodec: LZ4 ...
 
 you may use docker-compose-full.yml to run with these commands
 
-```console, sh
+```sh, console
 # describe a topic
 docker-compose exec kafkacat kafkacat -b kafka1:9092 -L -t new-employees
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --describe --topic new-employees
@@ -122,7 +122,7 @@ kafkacat -b kafka1:9092 -L -t <topic_name>
 
 #### JDBC connector example
 
-```sh
+```sh, console
 # setup postgres db with table
 
 # create jdbc source connector for postgresdb
