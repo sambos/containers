@@ -20,6 +20,16 @@ https://github.com/datastax/kafka-examples/tree/master/connectors/jdbc-source-co
 docker-compose exec kafka1 bash -c 'kafka-topics --zookeeper zookeeper:2181 --list'
 Default Topics:
 
+# command to check if compression is working fine..
+- docker-compose exec kafka1 bash (topic name = new-employees)
+- kafka-run-class kafka.tools.DumpLogSegments --files /var/lib/kafka/data/new-employees-0/00000000000000000000.log --print-data-log | grep compresscodec
+
+
+you should see something like :
+baseOffset: 0 lastOffset: 0 count: 1 ... compresscodec: NONE ...
+baseOffset: 1 lastOffset: 1 count: 1 ... compresscodec: GZIP ...
+baseOffset: 2 lastOffset: 2 count: 1 ... compresscodec: SNAPPY ...
+baseOffset: 3 lastOffset: 3 count: 1 ... compresscodec: LZ4 ...
 ```
 #### kafkacat commands:
 
