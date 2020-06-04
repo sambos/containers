@@ -36,7 +36,7 @@ TODO: Add Docker compose file
 
 ## Useful commands:
 
-```sh
+```shell
 # check topics
 docker-compose exec kafka1 bash -c 'kafka-topics --zookeeper zookeeper:2181 --list'
 Default Topics:
@@ -56,7 +56,7 @@ baseOffset: 3 lastOffset: 3 count: 1 ... compresscodec: LZ4 ...
 
 you may use docker-compose-full.yml to run with these commands
 
-```sh
+```shell
 # describe a topic
 docker-compose exec kafkacat kafkacat -b kafka1:9092 -L -t new-employees
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --describe --topic new-employees
