@@ -1,6 +1,9 @@
 ## kafka worked examples
 https://github.com/sambos/kafka-samples
 
+### book
+https://www.confluent.io/wp-content/uploads/confluent-kafka-definitive-guide-complete.pdf
+
 ## Kafka Container setup
 ### kafka confluent workshop 
 https://github.com/confluentinc/kafka-workshop
@@ -72,6 +75,19 @@ kafka-run-class kafka.admin.ConsumerGroupCommand --bootstrap-server kafka1:9092 
 
 TOPIC                 PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
 sample.producer.topic 0          26              26              0 
+
+
+# Decode __consumer_offsets topic 
+docker-compose exec connect bash -c 'kafka-console-consumer --bootstrap-server kafka1:9092 --topic __consumer_offsets --from-beginning --formatter "kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageFormatter"'
+
+or run command from connect/kafka node
+
+kafka-console-consumer --bootstrap-server kafka1:9092 --topic __consumer_offsets --from-beginning --formatter "kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageFormatter"
+
+reponse:
+[demo-group,postgres-movies,0]::OffsetAndMetadata(offset=30, leaderEpoch=Optional.empty, metadata=, commitTimestamp=1591295989063, expireTimestamp=None)
+[test-1,new-employees,0]::OffsetAndMetadata(offset=13, leaderEpoch=Optional.empty, metadata=, commitTimestamp=1591296368280, expireTimestamp=None)
+[test-1,new-employees,0]::OffsetAndMetadata(offset=13, leaderEpoch=Optional.empty, metadata=, commitTimestamp=1591296369725, expireTimestamp=None)
 
 # delete topic
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --delete --topic movies-raw
