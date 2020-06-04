@@ -36,7 +36,6 @@ baseOffset: 3 lastOffset: 3 count: 1 ... compresscodec: LZ4 ...
 you may use docker-compose-full.yml to run with these commands
 
 ```sh
-
 # delete topic
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --delete --topic movies-raw
 
@@ -44,7 +43,7 @@ docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --delete --to
 docker exec connect kafka-topics --create --topic quickstart-data --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
 
 #create source connector
-
+see examples for file and jdbc connector below
 
 docker-compose exec <kafkacat-container-name> <kafkacat-commands>
 
@@ -71,6 +70,37 @@ sample.producer.topic 0          26              26              0              
 #### JDBC connector example
 
 ```sh
+# setup postgres db with table
+
+# create jdbc source connector for postgresdb
+docker-compose exec connect bash -c 'curl -i -X POST -H "Accept:application/json" \
+        -H "Content-Type:application/json" -d @/connect/postgres-source.json http://localhost:8083/connectors'
+        
+or inline:
+
+docker-compose exec connect curl -s -X POST -H "Content-Type: application/json" --data '{"name":"jdbc_source_postgres_movies","config":{"connector.class":"io.confluent.connect.jdbc.JdbcSourceConnector","connection.url":"jdbc:postgresql://database:5432/WORKSHOP?user=postgres&password=postgres","table.whitelist":"movies","mode":"incrementing","incrementing.column.name":"id","validate.non.null":"false","_comment":"The Kafka topic will be made up of this prefix, plus the table name  ","topic.prefix":"postgres-"}}' http://connect:8083/connectors
+
+# check connectors are created 
+docker-compose exec connect curl -s -X GET http://connect:8083/connect
+
+response:
+["jdbc_source_postgres_movies"]
+
+#check topic is created
+docker-compose exec kafka1 bash -c 'kafka-topics --zookeeper zookeeper:2181 --list'
+
+response:
+__confluent.support.metrics
+__consumer_offsets
+_confluent-ksql-kafka_workshop_command_topic
+_schemas
+docker-connect-configs
+docker-connect-offsets
+docker-connect-status
+postgres-movies
+
+# check that movies avro schema got registered in schemaregistry
+docker-compose exec kafkacat curl -s -X GEThttp://schemaregistry:8081/subjects/postgres-movies-value/versions/latest
 
 ```
 
