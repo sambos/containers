@@ -36,6 +36,25 @@ baseOffset: 3 lastOffset: 3 count: 1 ... compresscodec: LZ4 ...
 you may use docker-compose-full.yml to run with these commands
 
 ```sh
+# describe a topic
+docker-compose exec kafkacat kafkacat -b kafka1:9092 -L -t new-employees
+docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --describe --topic new-employees
+
+# get earliest offset
+docker-compose exec kafka1 kafka-run-class kafka.tools.GetOffsetShell --broker-list kafka1:9092 --topic new-employees --time -2
+
+# latest offset
+docker-compose exec kafka1 kafka-run-class kafka.tools.GetOffsetShell --broker-list kafka1:9092 --topic new-employees --time -1 --offsets 1
+
+# view details of consumer group
+docker-compose exec kafka1 kafka-consumer-groups --bootstrap-server kafka1:9092 --describe --group demo-group
+
+# kafka offset (run on kafka container)
+kafka-run-class kafka.admin.ConsumerGroupCommand --group consumer-1 --bootstrap-server kafka1:9092 --describe
+
+TOPIC                 PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+sample.producer.topic 0          26              26              0 
+
 # delete topic
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --delete --topic movies-raw
 
@@ -59,11 +78,7 @@ kafkacat -b kafka1:9092 -P -c 2 -t <topic-name> -l /data/movies-json.js
 #meta-data
 kafkacat -b kafka1:9092 -L -t <topic_name>
 
-# kafka offset (run on kafka container)
-kafka-run-class kafka.admin.ConsumerGroupCommand --group consumer-1 --bootstrap-server kafka1:9092 --describe
-
-TOPIC                 PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
-sample.producer.topic 0          26              26              0               -               -               -
+              -               -               -
 
 ```
 
