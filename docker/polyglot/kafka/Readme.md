@@ -4,8 +4,10 @@ https://github.com/sambos/kafka-samples
 ### book
 https://www.confluent.io/wp-content/uploads/confluent-kafka-definitive-guide-complete.pdf
 
-### multiple schemas in one topic
-https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/
+### Topics
+[Should you put Multiple event types in single topic ?](https://www.confluent.io/blog/put-several-event-types-kafka-topic/)
+[How to enable multi schema in single topic](https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/)
+[Choosing # of partitions](https://www.confluent.io/blog/how-to-choose-the-number-of-topicspartitions-in-a-kafka-cluster/)
 
 ## Kafka Container setup
 ### kafka confluent workshop 
