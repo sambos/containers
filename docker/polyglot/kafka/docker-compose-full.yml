@@ -160,3 +160,16 @@ services:
       KAFKA_REST_DEBUG: "true"
     ports:
       - 8082:8082
+
+# fast-data-ui image for kafka topic mgmt
+  fastdata-ui:
+    image: landoop/kafka-topics-ui
+    restart: always
+    depends_on:
+      - restproxy
+    environment:
+       PROXY: "true"
+       KAFKA_REST_PROXY_URL: "http://restproxy:8082"
+
+    ports:
+      - 8000:8000
