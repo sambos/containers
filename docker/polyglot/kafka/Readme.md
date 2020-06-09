@@ -4,6 +4,9 @@ https://github.com/sambos/kafka-samples
 ### book
 https://www.confluent.io/wp-content/uploads/confluent-kafka-definitive-guide-complete.pdf
 
+### multiple schemas in one topic
+https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/
+
 ## Kafka Container setup
 ### kafka confluent workshop 
 https://github.com/confluentinc/kafka-workshop
