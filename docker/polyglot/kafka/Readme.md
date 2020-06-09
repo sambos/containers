@@ -1,4 +1,16 @@
+## kafka worked examples
+https://github.com/sambos/kafka-samples
 
+### book
+https://www.confluent.io/wp-content/uploads/confluent-kafka-definitive-guide-complete.pdf
+
+### Topics
+* [Should you put Multiple event types in single topic ?](https://www.confluent.io/blog/put-several-event-types-kafka-topic/)
+* [How to enable multi schema in single topic](https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/)
+* [Choosing # of partitions](https://www.confluent.io/blog/how-to-choose-the-number-of-topicspartitions-in-a-kafka-cluster/)
+* [Create a CDC Event Stream From Oracle Database to Kafka With GoldenGate](https://dzone.com/articles/creates-a-cdc-stream-from-oracle-database-to-kafka)
+
+## Kafka Container setup
 ### kafka confluent workshop 
 https://github.com/confluentinc/kafka-workshop
 
@@ -12,10 +24,25 @@ https://docs.confluent.io/3.2.1/installation/docker/docs/quickstart.html#getting
 https://github.com/datastax/kafka-examples/tree/master/connectors/jdbc-source-connector
 
 
+#### fast-data-dev Docker Container
+##### All in One Docker container for Kafka - for developers
 
-#### Useful commands:
+https://github.com/lensesio/fast-data-dev
 
 ```sh
+docker run --rm -p 2181:2181 -p 3030:3030 -p 8081-8083:8081-8083 \
+      -p 9581-9585:9581-9585 -p 9092:9092 -e ADV_HOST=127.0.0.1 \
+      landoop/fast-data-dev:latest
+```
+
+```
+TODO: Add Docker compose file
+```
+
+
+## Useful commands:
+
+```console
 # check topics
 docker-compose exec kafka1 bash -c 'kafka-topics --zookeeper zookeeper:2181 --list'
 Default Topics:
@@ -35,7 +62,7 @@ baseOffset: 3 lastOffset: 3 count: 1 ... compresscodec: LZ4 ...
 
 you may use docker-compose-full.yml to run with these commands
 
-```sh
+```console, sh
 # describe a topic
 docker-compose exec kafkacat kafkacat -b kafka1:9092 -L -t new-employees
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --describe --topic new-employees
@@ -49,11 +76,27 @@ docker-compose exec kafka1 kafka-run-class kafka.tools.GetOffsetShell --broker-l
 # view details of consumer group
 docker-compose exec kafka1 kafka-consumer-groups --bootstrap-server kafka1:9092 --describe --group demo-group
 
-# kafka offset (run on kafka container)
-kafka-run-class kafka.admin.ConsumerGroupCommand --group consumer-1 --bootstrap-server kafka1:9092 --describe
+# kafka offset (run on kafka container) - (same as above command)
+kafka-run-class kafka.admin.ConsumerGroupCommand --bootstrap-server kafka1:9092 --group consumer-1 --describe
 
 TOPIC                 PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
 sample.producer.topic 0          26              26              0 
+
+
+# Decode __consumer_offsets topic 
+docker-compose exec connect bash -c 'kafka-console-consumer --bootstrap-server kafka1:9092 --topic __consumer_offsets --from-beginning --formatter "kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageFormatter"'
+
+or run command from connect/kafka node
+
+kafka-console-consumer --bootstrap-server kafka1:9092 --topic __consumer_offsets --from-beginning --formatter "kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageFormatter"
+
+format:
+[groupId,topicName,partitionNumber]::[OffsetMetadata[OffsetNumber,NO_METADATA],CommitTime 1520613132835,ExpirationTime 1520699532835]
+
+reponse:
+[demo-group,postgres-movies,0]::OffsetAndMetadata(offset=30, leaderEpoch=Optional.empty, metadata=, commitTimestamp=1591295989063, expireTimestamp=None)
+[test-1,new-employees,0]::OffsetAndMetadata(offset=13, leaderEpoch=Optional.empty, metadata=, commitTimestamp=1591296368280, expireTimestamp=None)
+[test-1,new-employees,0]::OffsetAndMetadata(offset=13, leaderEpoch=Optional.empty, metadata=, commitTimestamp=1591296369725, expireTimestamp=None)
 
 # delete topic
 docker-compose exec kafka1 kafka-topics --zookeeper zookeeper:2181 --delete --topic movies-raw
@@ -81,10 +124,11 @@ kafkacat -b kafka1:9092 -L -t <topic_name>
               -               -               -
 
 ```
+## Kafka Connector examples
 
 #### JDBC connector example
 
-```sh
+```console, sh
 # setup postgres db with table
 
 # create jdbc source connector for postgresdb
@@ -143,22 +187,10 @@ or inline:
 docker exec connect curl -s -X POST -H "Content-Type: application/json" --data '{"name": "quickstart-file-source", "config": {"connector.class":"org.apache.kafka.connect.file.FileStreamSourceConnector", "tasks.max":"1", "topic":"quickstart-data", "file": "/tmp/quickstart/file/input.txt"}}' http://connect:8083/connectors
 
 ```
-#### fast-data-dev Docker Container
-##### All in One Docker container for Kafka - for developers
 
-https://github.com/lensesio/fast-data-dev
 
-```
-docker run --rm -p 2181:2181 -p 3030:3030 -p 8081-8083:8081-8083 \
-      -p 9581-9585:9581-9585 -p 9092:9092 -e ADV_HOST=127.0.0.1 \
-      landoop/fast-data-dev:latest
-```
-
-```
-TODO: Add Docker compose file
-```
-
-#### Schema Registry
+## Schema Registry
 ##### Multiple schemas, single topic
 https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/
+
 
