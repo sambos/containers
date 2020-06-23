@@ -1,0 +1,35 @@
+version: '3'
+services:
+   oracledb:
+     container_name: oracledb
+     image: store/oracle/database-enterprise:12.2.0.1-slim
+     volumes:
+        - ora-data:/opt/oracle/oradata #/u01/app/oracle
+        - SPMG-u01:/u01
+        - SPMG-u01:/u02
+        - SPMG-u01:/u03
+        - SPMG-u01:/u04
+     ports:
+        - 1521:1521
+        - 8089:8080
+        - 5500:5500
+     environment:
+       - DB_PDB:ORCLPDB1
+       - DB_SID:myuser
+       - DB_DOMAIN:us.oracle.com
+       - DB_PASSWD:Oracle
+       #- DB_BUNDLE=basic
+        
+volumes:
+  ora-data:
+     driver: local
+  SPMG-u01:
+  SPMG-u02:
+  SPMG-u03:
+  SPMG-u04:
+  
+       #default password for sys is Oradoc_db1
+       #default database ORCLCDB.localdomain
+       #echo $ORACLE_HOME
+       #https://github.com/oracle/docker-images/blob/master/OracleDatabase/SingleInstance/dockerfiles/12.2.0.1/Dockerfile
+       #https://hub.docker.com/u/samdockerc/content/sub-dd1d81f3-e611-45b9-a999-7381096865f3

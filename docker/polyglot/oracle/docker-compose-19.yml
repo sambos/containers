@@ -1,0 +1,40 @@
+version: '3'
+services:
+   oracledb:
+     container_name: oracle19c
+     image: civortech/oracle-database:19.3.0-ee
+     volumes:
+        - ~/docker/u01/app/oracle/oradata:/opt/oracle/oradata
+
+     ports:
+        - 1521:1521
+        - 8081:8081
+        - 5500:5500
+     environment:
+       ORACLE_PDB: future
+       ORACLE_SID: db
+       ORACLE_PWD: oracle
+       #- DB_BUNDLE=basic
+
+
+  
+       #default password for sys is Oradoc_db1
+       # $ORACLE_HOME/network/admin/tnsnames.ora
+       # TO BUILD
+       #https://medium.com/oracledevs/devops-series-running-oracle-database-19c-in-a-docker-container-b41f142c19f6
+       
+       # enterprise manager database express login url 
+        # - username/password as sys/$ORACLE_PWD 
+        # container name - empty
+       # https://localhost:5500/em
+       
+       #commands
+       
+       #set password as : docker exec 7a4033c4af5b ./setPassword.sh <new-pwd>
+       #sqlplus "/ as sysdba"
+       #sqlplus system/oracle@//localhost:1521/future
+       #grant connect, resource to <new-user> identified by <new-user-password>;
+       #conn <user>/<pwd>@//localhost:1521/future
+       #select sysdate from dual;
+       
+       
