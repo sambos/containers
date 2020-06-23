@@ -189,8 +189,5 @@ docker exec connect curl -s -X POST -H "Content-Type: application/json" --data '
 ```
 
 
-## Schema Registry
-##### Multiple schemas, single topic
-https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/
 
 
