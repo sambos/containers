@@ -14,6 +14,7 @@ services:
         - 8089:8080
         - 5500:5500
      environment:
+     #TBD: they do not seem to work - use default values
        - DB_PDB:ORCLPDB1
        - DB_SID:myuser
        - DB_DOMAIN:us.oracle.com

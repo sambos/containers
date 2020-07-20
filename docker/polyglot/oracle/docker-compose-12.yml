@@ -1,0 +1,32 @@
+version: '3.2'
+services:
+  database:
+    image: store/oracle/database-enterprise:12.2.0.1-slim
+    container_name: OracleDB
+    volumes:
+      #- oracle-data:/opt/oracle/oradata #/u01/app/oracle - persistent oracle database data.
+      - //c/dev/scripts/docker/oracle/SPMG-u01:/u01
+      - //c/dev/scripts/docker/oracle/SPMG-u02:/u02
+      - //c/dev/scripts/docker/oracle/SPMG-u03:/u03
+      - //c/dev/scripts/docker/oracle/SPMG-u04:/u04          
+
+    ports:
+      - 1521:1521
+      - 8080:8080
+      - 5500:5500
+    environment:
+    #TBD: they do not seem to work - use default values
+      - DB_DOMAIN:localdomain
+      - DB_SID:SMPG
+      - DB_PASSWD:Oracle
+
+volumes:
+    #oracle-data:
+    #    driver: local
+    SPMG-u01:
+    SPMG-u02:
+    SPMG-u03:
+    SPMG-u04:
+
+# database: OracleDB.localdomain
+# default pwd : Oradoc_db1
