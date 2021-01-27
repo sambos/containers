@@ -9,6 +9,7 @@ https://www.confluent.io/wp-content/uploads/confluent-kafka-definitive-guide-com
 * [How to enable multi schema in single topic](https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/)
 * [Choosing # of partitions](https://www.confluent.io/blog/how-to-choose-the-number-of-topicspartitions-in-a-kafka-cluster/)
 * [Create a CDC Event Stream From Oracle Database to Kafka With GoldenGate](https://dzone.com/articles/creates-a-cdc-stream-from-oracle-database-to-kafka)
+* [Spring Boot Kafka - Handling Poison Pill](https://www.confluent.io/blog/spring-kafka-can-your-kafka-consumers-handle-a-poison-pill/)
 
 ## Kafka Container setup
 ### kafka confluent workshop 
