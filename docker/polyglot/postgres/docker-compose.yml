@@ -10,7 +10,7 @@ services:
      environment:
        - POSTGRES_USER=postgres
        - POSTGRES_PASSWORD=postgres
-       - POSTGRES_DB=onepdl
+       - POSTGRES_DB=mydb
         
    pgadmin4:
      container_name: pgadmin4
